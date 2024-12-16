@@ -1,0 +1,83 @@
+[gd_scene load_steps=5 format=3 uid="uid://wh4k2ojgjgjb"]
+
+[ext_resource type="Script" path="res://scripts/ButtonsManager.cs" id="1_378x7"]
+[ext_resource type="FontFile" uid="uid://ssans5eaq5xj" path="res://fonts/VT323/VT323-Regular.ttf" id="2_hf8vw"]
+[ext_resource type="PackedScene" uid="uid://c18joobiwx7wm" path="res://scenes/footer.tscn" id="3_qesbx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kn5jq"]
+font = ExtResource("2_hf8vw")
+font_size = 35
+font_color = Color(1, 0.130502, 0.229527, 1)
+
+[node name="Main" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Visual" type="Node" parent="CanvasLayer/Control"]
+
+[node name="Screen" type="Node" parent="CanvasLayer/Control/Visual"]
+
+[node name="Top" type="ColorRect" parent="CanvasLayer/Control/Visual/Screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Visual" node_paths=PackedStringArray("EncryptButton", "DescryptButton")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.5
+offset_top = -33.0
+offset_right = 31.5
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_378x7")
+EncryptButton = NodePath("Encrypt")
+DescryptButton = NodePath("Decrypt")
+
+[node name="Encrypt" type="Button" parent="CanvasLayer/Control/Visual/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.968627, 0, 1)
+theme_override_fonts/font = ExtResource("2_hf8vw")
+theme_override_font_sizes/font_size = 35
+text = "Encrypt"
+flat = true
+
+[node name="Decrypt" type="Button" parent="CanvasLayer/Control/Visual/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.886275, 0, 1)
+theme_override_fonts/font = ExtResource("2_hf8vw")
+theme_override_font_sizes/font_size = 35
+text = "Decrypt"
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Visual"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 33.0
+offset_right = 20.0
+offset_bottom = 56.0
+grow_horizontal = 2
+text = "Select one option"
+label_settings = SubResource("LabelSettings_kn5jq")
+horizontal_alignment = 1
+
+[node name="Footer" parent="CanvasLayer/Control/Visual" instance=ExtResource("3_qesbx")]
+
+[connection signal="pressed" from="CanvasLayer/Control/Visual/VBoxContainer/Encrypt" to="CanvasLayer/Control/Visual/VBoxContainer" method="_on_encrypt_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Visual/VBoxContainer/Decrypt" to="CanvasLayer/Control/Visual/VBoxContainer" method="_on_decrypt_pressed"]

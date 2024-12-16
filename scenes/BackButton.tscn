@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctsy5wrnsbf01"]
+
+[ext_resource type="FontFile" uid="uid://ssans5eaq5xj" path="res://fonts/VT323/VT323-Regular.ttf" id="1_qi01c"]
+[ext_resource type="Script" path="res://scripts/BackButton/BackButton.cs" id="2_mqewx"]
+
+[node name="BackButton" type="Node2D"]
+script = ExtResource("2_mqewx")
+
+[node name="BackButton" type="Button" parent="."]
+offset_left = 69.0
+offset_top = 37.0
+offset_right = 133.0
+offset_bottom = 80.0
+theme_override_fonts/font = ExtResource("1_qi01c")
+theme_override_font_sizes/font_size = 35
+text = "Back"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
