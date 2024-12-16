@@ -84,8 +84,7 @@ public partial class ButtonManager : HBoxContainer
             }
             catch (Exception e)
             {
-                GD.PrintErr("Error reading file");
-				Console.WriteLine("Error reading file");
+				Console.WriteLine("Error reading file: " + e.Message);
             }
         }
         else

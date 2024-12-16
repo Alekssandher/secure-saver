@@ -65,7 +65,6 @@ public partial class Control : Godot.Control
 			catch (Exception e)
             {
 				Aviso("Wrong password or corrupted data, try again.", "fff700");
-                GD.PrintErr("Error reading file: " + e.Message);
 				Console.WriteLine("Error reading file: " + e.Message);
             }
 		}
