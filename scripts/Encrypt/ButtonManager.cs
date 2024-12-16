@@ -19,6 +19,7 @@ public partial class ButtonManager : HBoxContainer
 
 	[Export]
 	Label WarningLabel;
+
 	string SelectFilePath;
 	string SaveFilePath;
 	string FileContent;
@@ -26,7 +27,7 @@ public partial class ButtonManager : HBoxContainer
 	byte[] FileEncrypted;
 	public override void _Ready()
 	{
-
+		Aviso("For safety, after this action the original file will be overwrtten and deleted", "fff700");
 	}
 
 	private void Aviso(string message, string color) {
@@ -63,6 +64,24 @@ public partial class ButtonManager : HBoxContainer
 		WarningLabel.Text = "";
 		return false;
 	}
+
+	private void SafeDeleteFile(string filePath) {
+
+		long fileSize = new FileInfo(filePath).Length;
+
+		byte[] randomData = new byte[fileSize];
+		Random random = new Random();
+		random.NextBytes(randomData);
+
+		using (FileStream fs = new FileStream(filePath, FileMode.Open, System.IO.FileAccess.Write))
+		{
+			fs.Write(randomData, 0, randomData.Length);
+		}
+
+		File.Delete(filePath);
+
+		Console.WriteLine("Files overwritten");
+	}
 	private void _on_encrypt_pressed() {
 		if (Verify()) return;
 
@@ -80,12 +99,27 @@ public partial class ButtonManager : HBoxContainer
 
 				WarningLabel.Text = "";
 
+				SafeDeleteFile(SelectFilePath);
+
 
             }
+			catch (UnauthorizedAccessException e) {
+				Console.WriteLine("Permission denied: " + e.Message);
+
+				Aviso("Permission denied. Please check your file permissions.", "bd0a33");
+
+			}
+			catch (IOException e) // Exceção para problemas de E/S
+			{
+				Console.WriteLine("File access error: " + e.Message);
+				Aviso("File access error. Ensure the file is not in use by another program.", "bd0a33");
+			}
             catch (Exception e)
             {
-				Console.WriteLine("Error reading file: " + e.Message);
+				Aviso("Wrong password or corrupted data, try again.", "fff700");
+				Console.WriteLine("Unexpected error: " + e.Message);
             }
+			
         }
         else
         {

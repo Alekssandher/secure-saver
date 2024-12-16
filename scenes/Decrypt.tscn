@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dq5qc8bl6peuo"]
+[gd_scene load_steps=7 format=3 uid="uid://dq5qc8bl6peuo"]
 
 [ext_resource type="FontFile" uid="uid://ssans5eaq5xj" path="res://assets/fonts/VT323/VT323-Regular.ttf" id="1_jwn84"]
 [ext_resource type="Script" path="res://scripts/Decrypt/Control.cs" id="1_uli45"]
@@ -9,11 +9,16 @@
 font = ExtResource("1_jwn84")
 font_size = 25
 
+[sub_resource type="LabelSettings" id="LabelSettings_ypjdn"]
+font = ExtResource("1_jwn84")
+font_size = 30
+font_color = Color(0, 0, 0, 1)
+
 [node name="Decrypt" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("Password", "WarningLabel", "SelectFileWindow", "SaveFileWindow")]
+[node name="Control" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("Password", "WarningLabel", "SelectFileWindow", "SaveFileWindow", "Mode", "VisualizerNode", "RichLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,10 +26,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_uli45")
-Password = NodePath("Visual/VBoxContainer/Password")
-WarningLabel = NodePath("Visual/VBoxContainer/WarningLabel")
+Password = NodePath("Visual/HBoxContainer/VBoxContainer/Password")
+WarningLabel = NodePath("Visual/HBoxContainer/VBoxContainer/WarningLabel")
 SelectFileWindow = NodePath("SelectFile")
 SaveFileWindow = NodePath("SaveFile")
+Mode = NodePath("Visual/Mode")
+VisualizerNode = NodePath("Visual/VisualizerNode")
+RichLabel = NodePath("Visual/VisualizerNode/ColorRect2/RichTextLabel")
 
 [node name="Visual" type="Node" parent="CanvasLayer/Control"]
 
@@ -38,37 +46,42 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Visual"]
+[node name="Footer" parent="CanvasLayer/Control/Visual" instance=ExtResource("3_dvcs8")]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Visual"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -31.5
-offset_top = -33.0
-offset_right = 31.5
-offset_bottom = 33.0
+offset_left = -136.0
+offset_top = -52.0
+offset_right = 136.0
+offset_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="WarningLabel" type="Label" parent="CanvasLayer/Control/Visual/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Visual/HBoxContainer"]
+layout_mode = 2
+
+[node name="WarningLabel" type="Label" parent="CanvasLayer/Control/Visual/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_48j7n")
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Password" type="LineEdit" parent="CanvasLayer/Control/Visual/VBoxContainer"]
+[node name="Password" type="LineEdit" parent="CanvasLayer/Control/Visual/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_jwn84")
 theme_override_font_sizes/font_size = 20
 placeholder_text = "Password"
 secret = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Visual/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Visual/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Decrypt" type="Button" parent="CanvasLayer/Control/Visual/VBoxContainer/HBoxContainer"]
+[node name="Decrypt" type="Button" parent="CanvasLayer/Control/Visual/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.968627, 0, 1)
 theme_override_fonts/font = ExtResource("1_jwn84")
@@ -76,7 +89,7 @@ theme_override_font_sizes/font_size = 35
 text = "Decrypt"
 flat = true
 
-[node name="SelectFile" type="Button" parent="CanvasLayer/Control/Visual/VBoxContainer/HBoxContainer"]
+[node name="SelectFile" type="Button" parent="CanvasLayer/Control/Visual/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.886275, 0, 1)
 theme_override_fonts/font = ExtResource("1_jwn84")
@@ -84,7 +97,65 @@ theme_override_font_sizes/font_size = 35
 text = "Select File"
 flat = true
 
-[node name="Footer" parent="CanvasLayer/Control/Visual" instance=ExtResource("3_dvcs8")]
+[node name="Mode" type="CheckButton" parent="CanvasLayer/Control/Visual"]
+offset_left = 875.0
+offset_top = 37.0
+offset_right = 1133.0
+offset_bottom = 80.0
+theme_override_colors/font_disabled_color = Color(1, 0.254902, 0.913725, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.254902, 0.913725, 1)
+theme_override_colors/font_hover_color = Color(1, 0.254902, 0.913725, 0.72549)
+theme_override_colors/font_pressed_color = Color(1, 0.254902, 0.913725, 1)
+theme_override_colors/font_focus_color = Color(1, 0.254902, 0.913725, 1)
+theme_override_colors/font_color = Color(1, 0.254902, 0.913725, 1)
+theme_override_fonts/font = ExtResource("1_jwn84")
+theme_override_font_sizes/font_size = 35
+text = "Visualizer mode"
+flat = true
+
+[node name="VisualizerNode" type="Node2D" parent="CanvasLayer/Control/Visual"]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/Visual/VisualizerNode"]
+offset_left = 303.0
+offset_top = 109.0
+offset_right = 875.0
+offset_bottom = 538.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Visual/VisualizerNode/ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 8.0
+offset_right = 20.0
+offset_bottom = 38.0
+grow_horizontal = 2
+text = "Your decrypted text"
+label_settings = SubResource("LabelSettings_ypjdn")
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Control/Visual/VisualizerNode"]
+offset_left = 303.0
+offset_top = 151.0
+offset_right = 875.0
+offset_bottom = 538.0
+color = Color(4.33177e-07, 0.00209388, 0.607126, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Visual/VisualizerNode/ColorRect2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 8.0
+offset_right = -13.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0.756863, 0, 1)
+theme_override_fonts/normal_font = ExtResource("1_jwn84")
+theme_override_font_sizes/normal_font_size = 25
 
 [node name="SelectFile" type="FileDialog" parent="CanvasLayer/Control"]
 auto_translate_mode = 1
@@ -108,7 +179,7 @@ use_native_dialog = true
 
 [node name="BackButton" parent="CanvasLayer" instance=ExtResource("2_twxyl")]
 
-[connection signal="pressed" from="CanvasLayer/Control/Visual/VBoxContainer/HBoxContainer/Decrypt" to="CanvasLayer/Control" method="_on_decrypt_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/Visual/VBoxContainer/HBoxContainer/SelectFile" to="CanvasLayer/Control" method="_on_select_file_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Visual/HBoxContainer/VBoxContainer/HBoxContainer/Decrypt" to="CanvasLayer/Control" method="_on_decrypt_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Visual/HBoxContainer/VBoxContainer/HBoxContainer/SelectFile" to="CanvasLayer/Control" method="_on_select_file_pressed"]
 [connection signal="file_selected" from="CanvasLayer/Control/SelectFile" to="CanvasLayer/Control" method="_on_select_file_file_selected"]
 [connection signal="file_selected" from="CanvasLayer/Control/SaveFile" to="CanvasLayer/Control" method="_on_save_file_file_selected"]

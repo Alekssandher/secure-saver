@@ -17,6 +17,13 @@ public partial class Control : Godot.Control
 	[Export]
 	FileDialog SaveFileWindow;
 
+	[Export]
+	CheckButton Mode;
+
+	[Export]
+	Node2D VisualizerNode;
+	[Export]
+	RichTextLabel RichLabel;
 	string SelectFilePath;
 	string SaveFilePath;
 	byte[] FileContent;
@@ -58,14 +65,31 @@ public partial class Control : Godot.Control
 
 				FileDecrypted = Decrypt.DecryptWalletData(FileContent, Password.Text);
 
+				if(Mode.ButtonPressed) {
+					VisualizerNode.Visible = true;
+					RichLabel.Text = FileDecrypted;
+
+					return;
+				}
 				SaveFileWindow.Popup();
 
 				WarningLabel.Text = "";
 			} 
+			catch (UnauthorizedAccessException e) {
+				Console.WriteLine("Permission denied: " + e.Message);
+				
+				Aviso("Permission denied. Please check your file permissions.", "bd0a33");
+
+			}
+			catch (IOException e)
+			{
+				Console.WriteLine("File access error: " + e.Message);
+				Aviso("File access error. Ensure the file is not in use by another program.", "bd0a33");
+			}
 			catch (Exception e)
             {
 				Aviso("Wrong password or corrupted data, try again.", "fff700");
-				Console.WriteLine("Error reading file: " + e.Message);
+				Console.WriteLine("Unexpected error: " + e.Message);
             }
 		}
 		
