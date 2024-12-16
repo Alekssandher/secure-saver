@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c0ymaf0kq43is"]
 
 [ext_resource type="Script" path="res://scripts/Encrypt/ButtonManager.cs" id="1_cfd43"]
-[ext_resource type="FontFile" uid="uid://ssans5eaq5xj" path="res://fonts/VT323/VT323-Regular.ttf" id="2_0ji7d"]
+[ext_resource type="FontFile" uid="uid://ssans5eaq5xj" path="res://assets/fonts/VT323/VT323-Regular.ttf" id="2_0ji7d"]
 [ext_resource type="PackedScene" uid="uid://ctsy5wrnsbf01" path="res://scenes/BackButton.tscn" id="3_sxsiu"]
 [ext_resource type="PackedScene" uid="uid://c18joobiwx7wm" path="res://scenes/footer.tscn" id="3_wyd7i"]
 

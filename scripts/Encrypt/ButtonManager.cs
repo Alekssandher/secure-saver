@@ -110,5 +110,8 @@ public partial class ButtonManager : HBoxContainer
 		File.WriteAllBytes(SaveFilePath, FileEncrypted);
 
 		Aviso("File saved successfully", "00e200");
+
+		Password1.Text = "";
+		Password2.Text = "";
 	}
 }

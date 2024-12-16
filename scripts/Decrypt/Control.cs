@@ -91,5 +91,7 @@ public partial class Control : Godot.Control
 		File.WriteAllText(SaveFilePath, FileDecrypted);
 
 		Aviso("File saved successfully", "00e200");
+
+		Password.Text = "";
 	}
 }

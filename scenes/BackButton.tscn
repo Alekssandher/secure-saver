@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctsy5wrnsbf01"]
 
-[ext_resource type="FontFile" uid="uid://ssans5eaq5xj" path="res://fonts/VT323/VT323-Regular.ttf" id="1_qi01c"]
+[ext_resource type="FontFile" uid="uid://ssans5eaq5xj" path="res://assets/fonts/VT323/VT323-Regular.ttf" id="1_qi01c"]
 [ext_resource type="Script" path="res://scripts/BackButton/BackButton.cs" id="2_mqewx"]
 
 [node name="BackButton" type="Node2D"]
