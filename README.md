@@ -46,7 +46,7 @@ Secure Saver provides a straightforward interface for text file encryption and d
 ### Decryption Process
 ![Decrypt screen](https://github.com/user-attachments/assets/9389c369-ca59-4e9b-87a6-4df3fe23fbbd)
 
-1. Select the encrypt option
+1. Select the decrypt option
 2. Select an encrypted file to decrypt
 3. Enter the password used for encryption
 4. Click "Decrypt"
